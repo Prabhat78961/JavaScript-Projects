@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+            user-select: none;
+        }
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        .calculator {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 400px;
+            border: solid 1px #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .3) inset;
+            border-radius: 5px;
+            margin-top: 40px;
+        }
+        #display {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+            border-radius: 5px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            font-size: 24px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color .3s ease;
+        }
+        button:active {
+            transform: scale(.95);
+        }
+        button:hover {
+            opacity: .6;
+        }
+        .clear {
+            background-color: rgb(239, 74, 74);
+            color: #fff
+        }
+        .operator {
+            background-color: rgb(83, 83, 247);
+            color: #fff;
+        }
+        .numbers, .decimal {
+            background-color: #fff;
+            color: #111
+        }
+        .equal {
+            background-color: rgb(15, 226, 15);
+            grid-row: span 3;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button class="clear">C</button>
+            <button class="operator">/</button>
+            <button class="operator">-</button>
+            <button class="operator">*</button>
+            <button class="numbers">7</button>
+            <button class="numbers">8</button>
+            <button class="numbers">9</button>
+            <button class="operator">+</button>
+            <button class="numbers">6</button>
+            <button class="numbers">5</button>
+            <button class="numbers">4</button>
+            <button class="equal">=</button>
+            <button class="numbers">3</button>
+            <button class="numbers">2</button>
+            <button class="numbers">1</button>
+            <button class="numbers">0</button>
+            <button class="decimal">.</button>
+        </div>
+    </div>
+</body>
+<script>
+    const buttonsEl = document.querySelectorAll("button")
+    const inputfeild = document.getElementById("display")
+
+    for (let i = 0; i < buttonsEl.length; i++) {
+        buttonsEl[i].addEventListener('click', ()=>{
+            const buttonvalue = buttonsEl[i].textContent;
+            if (buttonvalue === "C") {
+                ClearDisplay()
+            } else if (buttonvalue === "=") {
+                Result()
+            } else {
+                appendValue(buttonvalue)
+            }
+        });
+    }
+
+    function ClearDisplay() {
+        inputfeild.value = ""
+    }
+
+    function Result() {
+        inputfeild.value = eval (inputfeild.value)
+    }
+
+    function appendValue(buttonvalue) {
+        const operator = ["+", "*", "/", "-"]
+        const lastchar = inputfeild.value.slice(-1);
+
+        if (inputfeild.value === "" && inputfeild.value === "+" || inputfeild.value === "*" || inputfeild.value === "/" ) {
+            return;
+        }
+        if (operator.includes(buttonvalue) && operator.includes(lastchar)) {
+            inputfeild.value = inputfeild.value.slice(0,-1) + buttonvalue
+            return;
+        }
+        if (buttonvalue === ".") {
+        const currentnum = inputfeild.value.split(/[\+\-\*\/]/);
+        const lastnum = currentnum[currentnum.length - 1]
+
+        if (lastnum.includes(".")){
+            return;
+        }   
+    }
+    inputfeild.value += buttonvalue
+    }
+</script>
+</html>
