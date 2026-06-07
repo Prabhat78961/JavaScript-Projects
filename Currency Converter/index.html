@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        html,
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: yellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: darkcyan;
+            color: aliceblue;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .currency-container {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .currency-containe, select{
+            padding: 10px;
+        }
+        .currency-containe {
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Converter</h1>
+        <div class="currency-container">
+            <select id="Currency-first">
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="INR">INR</option>
+                <option value="JPY">JPY</option>
+                <option value="USD" selected>USD</option>
+            </select>
+            <input type="number" id="worth-first" value="1" min="1">
+        </div>
+        <div class="currency-container">
+            <select id="Currency-second">
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="INR" selected>INR</option>
+                <option value="JPY">JPY</option>
+                <option value="USD">USD</option>
+            </select>
+            <input type="number" id="worth-second" disabled>
+        </div>
+        <p class="exchange-rate" id="exchange-rate">1 USD = 95.39 INR</p>
+    </div>
+</body>
+</html>
