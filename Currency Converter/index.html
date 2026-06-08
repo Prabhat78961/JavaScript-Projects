@@ -25,6 +25,7 @@
             color: aliceblue;
             padding: 10px;
             border-radius: 5px;
+            text-align: center;
         }
         .currency-container {
             padding: 20px;
@@ -34,8 +35,21 @@
         .currency-containe, select{
             padding: 10px;
         }
-        .currency-containe {
-            
+        .currency-containe,input{
+            border: none;
+            background-color: transparent;
+            font-size: 25px;
+            text-align: right;
+            color: aliceblue;
+            outline: none;
+        }
+        .exchange-rate {
+            font-weight: 16px;
+            font-weight: 600;
+        }
+        select:focus,
+        input:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -66,7 +80,28 @@
             </select>
             <input type="number" id="worth-second" disabled>
         </div>
-        <p class="exchange-rate" id="exchange-rate">1 USD = 95.39 INR</p>
+        <p class="exchange-rate" id="exchange-rate">USD = INR</p>
     </div>
 </body>
+<script>
+    const currencyfirstEl = document.getElementById("Currency-first")
+    const currencySecondEl = document.getElementById("Currency-second")
+    const worthfirstEl = document.getElementById("worth-first")
+    const worthsecondEl = document.getElementById("worth-second")
+    const exchangerateEl = document.getElementById("exchange-rate")
+
+    UpdateRate()
+
+    function UpdateRate(){
+        fetch(` https://v6.exchangerate-api.com/v6/63e8619e8e1aba9417cb1931/latest/${currencyfirstEl.value}`).then((res)=>res.json()).then((data)=>{
+            const rate = data.conversion_rates[currencySecondEl.value]
+            exchangerateEl.innerText = `1 ${currencyfirstEl.value} = ${rate} ${currencySecondEl.value}`
+            worthsecondEl.value = Math.floor(worthfirstEl.value * rate)
+        })
+    }
+
+    currencyfirstEl.addEventListener('click', UpdateRate)
+    currencySecondEl.addEventListener('click', UpdateRate)
+    worthfirstEl.addEventListener('input', UpdateRate)
+</script>
 </html>
