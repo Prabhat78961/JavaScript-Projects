@@ -37,11 +37,14 @@
     UpdateIdx()
 
     function UpdateIdx(){
-        containerEl.innerHTML = `<h1>I am ${carrer[carrerIdx].slice(0, characterIdx)}</h1>`;
         characterIdx++;
+        containerEl.innerHTML = `<h1>I am ${carrer[carrerIdx].slice(0,1) === "I" ? "an" : "a"} ${carrer[carrerIdx].slice(0, characterIdx)}</h1>`;
         if(characterIdx === carrer[carrerIdx].length){
             carrerIdx++
             characterIdx = 0
+        }
+        if(carrerIdx === carrer.length){
+            carrerIdx = 0
         }
         setTimeout(UpdateIdx,400)
     }
