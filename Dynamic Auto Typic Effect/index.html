@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Auto Typing</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        html,
+        body{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: salmon;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>I am Web Developer</h1>
+    </div>
+</body>
+<script>
+    const containerEl = document.querySelector(".container")
+    const carrer = ["Web Developer", "Game Developer", "Freelancer"]
+
+    let carrerIdx = 0
+    let characterIdx = 0
+
+    UpdateIdx()
+
+    function UpdateIdx(){
+        containerEl.innerHTML = `<h1>I am ${carrer[carrerIdx].slice(0, characterIdx)}</h1>`;
+        characterIdx++;
+        if(characterIdx === carrer[carrerIdx].length){
+            carrerIdx++
+            characterIdx = 0
+        }
+        setTimeout(UpdateIdx,400)
+    }
+</script>
+</html>
