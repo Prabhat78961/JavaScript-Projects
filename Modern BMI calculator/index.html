@@ -1,0 +1,139 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Modern BMI calculator</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            }
+            html,
+            body{
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to left bottom, lightgreen, lightblue);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .container{
+                background: linear-gradient(to left bottom, rgb(173, 230, 182));
+                border: none;
+                padding: 30px;
+                height: 500px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+                border-radius: 10px;    
+                width: 45vw;        
+            }
+            .title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .inputs {
+                padding: 10px;
+                font-size: 18px;
+                color: gray;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .height-container, .weight-container{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            input{
+                border: none;
+                outline: none;
+                height: 40px;
+                width: full;
+                display: flex;
+                left: 10px;
+                background-color: rgb(222, 233, 244);
+                border-radius: 5px;
+                padding: 10px;
+                color: black;
+                font-size: 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, .3) inset;
+            }
+            .submit{
+                background-color: lightgreen;
+                border: none;
+                border-radius: 5px;
+                padding: 10px;
+                width: full;
+                font-size: 20px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+                cursor: pointer;
+            }
+            .submit:hover{
+                opacity: .7;
+            }
+            .submit:active{
+                transform: scale(0.95);
+            }
+            .condition{
+                margin-top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="title">Body Mass Index (BMI) Calculator</h1>
+            <div class="inputs">
+                <div class="height-container">
+                    <label for="height-input">Your Height (cm):</label>
+                    <input type="number" class="height" id="height" min="1" max="3" placeholder="Enter your height">
+                </div>
+                <div class="weight-container">
+                    <label for="weight-input">Your Weight (kg):</label>
+                    <input type="number" class="weight" id="weight" placeholder="Enter your weight">
+                </div>
+                <button class="submit">Compute BMI</button>
+                <label for="BMI-result">Your BMI:</label>
+                <input type="number" class="result" id="result" disabled placeholder="Your BMI">
+                <h4 class="condition">Weight condition: </h4>
+            </div>
+        </div>
+    </body>
+    <script>
+        const heightEl = document.querySelector(".height")
+        const weightEl = document.querySelector(".weight")
+        const buttonEl = document.querySelector(".submit")
+        const resultEl = document.querySelector(".result")
+        const conditionEl = document.querySelector(".condition")
+
+        function calculateBMI(){
+            const heightVal = Number(heightEl.value);
+            const weightVal = Number(weightEl.value);
+
+            if (!heightVal || !weightVal || heightVal <= 0 || weightVal <=0 ){
+                alert("Please enter A vaild Height and Weight")
+                return
+            }
+
+            const heightMeter = heightVal / 100
+            const BMIHeight = heightMeter ** 2
+            const BMI = weightVal / BMIHeight
+
+            resultEl.value = BMI.toFixed(1)
+            console.log(BMI);
+
+            if (BMI < 18.5) {
+                conditionEl.innerHTML = `Weight condition: UnderWeight`
+            } else if (BMI >= 18.5 && BMI < 25.0) {
+                conditionEl.innerHTML = `Weight condition: Healthy Weight`
+            } else if (BMI >= 25.0 && BMI < 30.0) {
+                conditionEl.innerHTML = `Weight condition: OverWeight`
+            } else {
+                conditionEl.innerText = `Weight condition: Obese`
+            }
+        }
+        buttonEl.addEventListener('click', calculateBMI)
+    </script>
+    </html>
